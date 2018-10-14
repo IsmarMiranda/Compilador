@@ -1,0 +1,17 @@
+incluir
+clase
+funcionclase
+inclu
+numero1
+numero2
+nuemro12numeo
+verdadero
+falso
+iterar
+cadena
+booleano
++
+-
+>
+<
+>=
