@@ -9,6 +9,11 @@ package Analizado_Lexico;
 %public
 %standalone
 
+/*-------------------------------NUMEROS----------------------------------*/
+Numero = 0 | [1-9][0-9]*
+/*-------------------------------------------------------------------------*/
+
+
 /*--------------------------------Identificadores--------------------------*/
 Identificador = [a-zA-Z]([0-9]|[a-zA-Z])*
 /*-------------------------------------------------------------------------*/
@@ -34,6 +39,21 @@ Conjuncion = AND
 Operadores = {Suma}|{Resta}|{Mult}|{Div}|{Potencia}|{Igual}|{Disyuncion}|{Conjuncion}|{Menor}|{Mayor}|{MayorIgual}|{MenorIgual}
 /*------------------------------------------------------------------------------------------------------------*/
 
+/*-------------------------------SIGNOS----------------------------------*/
+CorcheteIni = \[
+CorcheteFin = \]
+DosPuntos =   \:
+PuntoComa =   \;
+Coma      =   \,
+Punto     =   \.
+ParentesisIni= \(
+ParentesisFin= \)
+LlaveIni     = \{
+LlaveFin     = \}
+Comillas     = \"
+Signos = {ParentesisIni}|{ParentesisFin}|{CorcheteIni}|{CorcheteFin}|{DosPuntos}|{PuntoComa}|{Coma}|{Punto}|{LlaveIni}|{LlaveFin}|{Comillas}
+/*-------------------------------------------------------------------------*/
+
 %%  
 
 {Reservadas}           {System.out.println("RESERVADA: "+yytext());}
@@ -41,4 +61,10 @@ Operadores = {Suma}|{Resta}|{Mult}|{Div}|{Potencia}|{Igual}|{Disyuncion}|{Conjun
 {Identificador}        {System.out.println("Identificador: "+yytext());}
 
 {Operadores}           {System.out.println("OPERADOR: "+yytext());}
+
+{Numero}               {System.out.println("NUMERO: "+yytext());}
+
+{Signos}               {System.out.println("SIGNOS: "+yytext());} 
+
+
 
