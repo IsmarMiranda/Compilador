@@ -702,19 +702,19 @@ String ruta = "src"+File.separator+"compilador"+File.separator+"tokens.txt";
             }
           case 10: break;
           case 3: 
-            { System.out.println("NUMERO: "+yytext());        numL.add(yytext());     EscribirArchivo(yytext()+ "\r\n");
+            { System.out.println("NUMERO: "+yytext());        numL.add(yytext());     EscribirArchivo("NUMERO: " +        yytext()+ "\r\n");
             }
           case 11: break;
           case 4: 
-            { System.out.println("Identificador: "+yytext()); identL.add(yytext());   EscribirArchivo(yytext()+ "\r\n");
+            { System.out.println("Identificador: "+yytext()); identL.add(yytext());   EscribirArchivo("IDENTIFICADOR: " + yytext()+ "\r\n");
             }
           case 12: break;
           case 5: 
-            { System.out.println("OPERADOR: "+yytext());      operaL.add(yytext());   EscribirArchivo(yytext()+ "\r\n");
+            { System.out.println("OPERADOR: "+yytext());      operaL.add(yytext());   EscribirArchivo("OPERADORES: " +    yytext()+ "\r\n");
             }
           case 13: break;
           case 6: 
-            { System.out.println("SIGNOS: "+yytext());        signL.add(yytext());    EscribirArchivo(yytext()+ "\r\n");
+            { System.out.println("SIGNOS: "+yytext());        signL.add(yytext());    EscribirArchivo("SIGNOS: " +        yytext()+ "\r\n");
             }
           case 14: break;
           case 7: 
@@ -722,7 +722,7 @@ String ruta = "src"+File.separator+"compilador"+File.separator+"tokens.txt";
             }
           case 15: break;
           case 8: 
-            { System.out.println("RESERVADA: "+yytext());     reserL.add(yytext());   EscribirArchivo(yytext()+ "\r\n");
+            { System.out.println("RESERVADA: "+yytext());     reserL.add(yytext());   EscribirArchivo("RESERVADA: " +     yytext()+ "\r\n");
             }
           case 16: break;
           default:

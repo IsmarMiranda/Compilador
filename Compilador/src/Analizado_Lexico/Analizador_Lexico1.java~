@@ -297,15 +297,29 @@ public class Analizador_Lexico1 {
   private int zzFinalHighSurrogate = 0;
 
   /* user code: */
+
+
+String ruta = "src"+File.separator+"compilador"+File.separator+"tokens.txt";
+
+
+/*-----------------------------LISTAS PARA LOS TOKENS----------------------*/
       ArrayList<String> numL = new ArrayList<>();
       ArrayList<String> operaL = new ArrayList<>();
       ArrayList<String> identL = new ArrayList<>();
       ArrayList<String> reserL = new ArrayList<>();
       ArrayList<String> signL = new ArrayList<>();
-    
-      public void imprime(){
-            System.out.println(numL);
-      }
+/*-------------------------------------------------------------------------*/    
+      public void EscribirArchivo(String cadena) {
+        try {
+            FileWriter fw = new FileWriter(ruta, true);
+            fw.write(cadena);
+            fw.close();
+        } catch (IOException ex) {
+     
+        }
+    }
+
+
     
 
 
@@ -688,19 +702,19 @@ public class Analizador_Lexico1 {
             }
           case 10: break;
           case 3: 
-            { System.out.println("NUMERO: "+yytext()); numL.add(yytext());
+            { System.out.println("NUMERO: "+yytext());        numL.add(yytext());     EscribirArchivo(yytext()+ "\r\n");
             }
           case 11: break;
           case 4: 
-            { System.out.println("Identificador: "+yytext());
+            { System.out.println("Identificador: "+yytext()); identL.add(yytext());   EscribirArchivo(yytext()+ "\r\n");
             }
           case 12: break;
           case 5: 
-            { System.out.println("OPERADOR: "+yytext());
+            { System.out.println("OPERADOR: "+yytext());      operaL.add(yytext());   EscribirArchivo(yytext()+ "\r\n");
             }
           case 13: break;
           case 6: 
-            { System.out.println("SIGNOS: "+yytext());
+            { System.out.println("SIGNOS: "+yytext());        signL.add(yytext());    EscribirArchivo(yytext()+ "\r\n");
             }
           case 14: break;
           case 7: 
@@ -708,7 +722,7 @@ public class Analizador_Lexico1 {
             }
           case 15: break;
           case 8: 
-            { System.out.println("RESERVADA: "+yytext()); imprime();
+            { System.out.println("RESERVADA: "+yytext());     reserL.add(yytext());   EscribirArchivo(yytext()+ "\r\n");
             }
           case 16: break;
           default:

@@ -100,15 +100,15 @@ Error = [0-9]*[a-zA-Z]*
 
 %%
 
-{Reservadas}           {System.out.println("RESERVADA: "+yytext());     reserL.add(yytext());   EscribirArchivo(yytext()+ "\r\n");}
+{Reservadas}           {System.out.println("RESERVADA: "+yytext());     reserL.add(yytext());   EscribirArchivo("RESERVADA: " +     yytext()+ "\r\n");}
 
-{Identificador}        {System.out.println("Identificador: "+yytext()); identL.add(yytext());   EscribirArchivo(yytext()+ "\r\n");}
+{Identificador}        {System.out.println("Identificador: "+yytext()); identL.add(yytext());   EscribirArchivo("IDENTIFICADOR: " + yytext()+ "\r\n");}
 
-{Operadores}           {System.out.println("OPERADOR: "+yytext());      operaL.add(yytext());   EscribirArchivo(yytext()+ "\r\n");}
+{Operadores}           {System.out.println("OPERADOR: "+yytext());      operaL.add(yytext());   EscribirArchivo("OPERADORES: " +    yytext()+ "\r\n");}
 
-{Numero}               {System.out.println("NUMERO: "+yytext());        numL.add(yytext());     EscribirArchivo(yytext()+ "\r\n");}
+{Numero}               {System.out.println("NUMERO: "+yytext());        numL.add(yytext());     EscribirArchivo("NUMERO: " +        yytext()+ "\r\n");}
 
-{Signos}               {System.out.println("SIGNOS: "+yytext());        signL.add(yytext());    EscribirArchivo(yytext()+ "\r\n");} 
+{Signos}               {System.out.println("SIGNOS: "+yytext());        signL.add(yytext());    EscribirArchivo("SIGNOS: " +        yytext()+ "\r\n");} 
 
 {Error}               {System.out.println("ERROR: "+yytext());} 
 
