@@ -139,15 +139,51 @@ Signos = {ParentesisIni}|{ParentesisFin}|{CorcheteIni}|{CorcheteFin}|{DosPuntos}
 /*-------------------------------------------------------------------------*/
 
 /*--------------------------------Errores--------------------------*/
-Error = [0-9]*[a-zA-Z]*
+Error = [0-9][a-zA-Z][a-zA-Z]*
 /*-------------------------------------------------------------------------*/
 
 /*--------------------------------Libreria--------------------------*/
 libreria = [a-zA-Z]*[.][a-zA-Z]*
 /*-------------------------------------------------------------------------*/
 
+/*---------------------------- Espacios--------------------------------------*/
+LineTerminator = \r|\n|\r\n
+WhiteSpace = {LineTerminator} | [ \t\f] | [ ]
+/*---------------------------------------------------------------------------*/
+
+/*-------------------------------Comentarios-------------------------------*/
+Comentario1 = {Div}{2}([a-zA-Z0-9]*{Caracteres}*(\s)*[a-zA-Z0-9]*{Caracteres}*)
+Comentario2 = {Div}{Mult}([a-zA-Z0-9]*{Caracteres}*(\s)*[a-zA-Z0-9]*{Caracteres}*){Div}{Mult}
+
+Comentarios = {Comentario1}|{Comentario2}
+/*---------------------------------------------------------------------------*/
+
+/*-------------------------------TEXTO---------------------------------------*/
+Texto1 = [a-zA-Z0-9]*{Caracteres}*
+
+Texto = {Comillas}{Texto1}(\s)*{Texto1}{Comillas}  
+/*---------------------------------------------------------------------------*/
+
+/*-------------------------------Caracteres----------------------------------*/
+C1 =\#
+C2 =\$
+C3 =\%
+C4 =\&
+C5 =\'
+C6 =\¿
+C7 =\¡
+
+Caracteres = {C1}|{C2}|{C3}|{C4}|{C5}|{C6}|{C7}
+/*---------------------------------------------------------------------------*/
+
+
 
 %%
+{Texto}                {System.out.println("Texto: "+yytext());}
+
+{Error}                {System.out.println("ERROR: "+yytext());} 
+
+{Comentarios}          {System.out.println("Comentario: "+yytext());} 
 
 {Reservadas}           {System.out.println("RESERVADA: "+yytext());     reserL.add(yytext());   EscribirArchivo("RESERVADA: " +     yytext()+ "\r\n");}
                             
@@ -159,13 +195,11 @@ libreria = [a-zA-Z]*[.][a-zA-Z]*
 
 {Signos}               {System.out.println("SIGNOS: "+yytext());        signL.add(yytext());    EscribirArchivo("SIGNOS: " +        yytext()+ "\r\n");} 
 
-{Error}               {System.out.println("ERROR: "+yytext());} 
- 
 {libreria}            {System.out.println("LIBRERIA: "+yytext()); VerificarArchivo(yytext());}   
 
 . {System.out.println("Error lexico:" +yytext());}
 
-    
+   
 
 
 

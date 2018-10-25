@@ -3,11 +3,8 @@ perro
 include
 stdio.txt
 01
-2
-3
-5
 563
-5
-65
 funcion
 equilibrio.txt
+//Hola## mundo
+"CAELOS ENRIQEU MENCHU"
