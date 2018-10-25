@@ -6,7 +6,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 
 %%
 
@@ -31,7 +32,9 @@ String ruta = "src"+File.separator+"compilador"+File.separator+"tokens.txt";
       ArrayList<String> reserL = new ArrayList<>();
       ArrayList<String> signL = new ArrayList<>();
 /*-------------------------------------------------------------------------*/    
-      public void EscribirArchivo(String cadena) {
+ 
+/*-----------------------ESCRIBIR EN TOKEN--------------------------------*/     
+    public void EscribirArchivo(String cadena) {
         try {
             FileWriter fw = new FileWriter(ruta, true);
             fw.write(cadena);
@@ -40,9 +43,51 @@ String ruta = "src"+File.separator+"compilador"+File.separator+"tokens.txt";
      
         }
     }
+/*-----------------------------------------------------------------------*/
 
+/*---------------------FUNCION VERIFICAR INCLUIR------------------------*/        
+    public void EscribirArchivoInclude(String cadena) {
+        try {
+            FileWriter fw = new FileWriter("src"+File.separator+"compilador"+File.separator+"include.txt", true);
+            fw.write(cadena);
+            fw.close();
+        } catch (IOException ex) {
+     
+        }
+    }
+     public void VerificarArchivo(String rutaX) {
+        File af = new File("src" + File.separator + "compilador" + File.separator + rutaX);
+        if (af.isFile() && af.exists()) {
+            System.out.println("EL ARCHIVO EXISTE");
 
-    
+            String cadena;
+            FileReader f = null;
+            try {
+                f = new FileReader("src" + File.separator + "compilador" + File.separator + rutaX);
+            } catch (FileNotFoundException ex) {
+
+            }
+            BufferedReader b = new BufferedReader(f);
+            try {
+                while ((cadena = b.readLine()) != null) {
+                    System.out.println(cadena);
+                    EscribirArchivoInclude(cadena + "\r\n");
+
+                }
+            } catch (IOException ex) {
+
+            }
+            try {
+                b.close();
+            } catch (IOException ex) {
+
+            }
+        } else {
+            System.out.println("EL ARCHIVO NO EXISTE");
+        }
+    }
+     
+/*----------------------------------------------------------------------*/
 %}
 
 
@@ -97,11 +142,15 @@ Signos = {ParentesisIni}|{ParentesisFin}|{CorcheteIni}|{CorcheteFin}|{DosPuntos}
 Error = [0-9]*[a-zA-Z]*
 /*-------------------------------------------------------------------------*/
 
+/*--------------------------------Libreria--------------------------*/
+libreria = [a-zA-Z]*[.][a-zA-Z]*
+/*-------------------------------------------------------------------------*/
+
 
 %%
 
 {Reservadas}           {System.out.println("RESERVADA: "+yytext());     reserL.add(yytext());   EscribirArchivo("RESERVADA: " +     yytext()+ "\r\n");}
-
+                            
 {Identificador}        {System.out.println("Identificador: "+yytext()); identL.add(yytext());   EscribirArchivo("IDENTIFICADOR: " + yytext()+ "\r\n");}
 
 {Operadores}           {System.out.println("OPERADOR: "+yytext());      operaL.add(yytext());   EscribirArchivo("OPERADORES: " +    yytext()+ "\r\n");}
@@ -111,6 +160,8 @@ Error = [0-9]*[a-zA-Z]*
 {Signos}               {System.out.println("SIGNOS: "+yytext());        signL.add(yytext());    EscribirArchivo("SIGNOS: " +        yytext()+ "\r\n");} 
 
 {Error}               {System.out.println("ERROR: "+yytext());} 
+ 
+{libreria}            {System.out.println("LIBRERIA: "+yytext()); VerificarArchivo(yytext());}   
 
 . {System.out.println("Error lexico:" +yytext());}
 

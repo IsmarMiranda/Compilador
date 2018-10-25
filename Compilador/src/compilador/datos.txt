@@ -1,5 +1,7 @@
 SARA
 perro
+include
+stdio.txt
 01
 2
 3
@@ -8,3 +10,4 @@ perro
 5
 65
 funcion
+equilibrio.txt
