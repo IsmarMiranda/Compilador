@@ -1,10 +1,16 @@
 SARA
 perro
 include
-stdio.txt
 01
 563
 funcion
-equilibrio.txt
 //Hola## mundo
 "CAELOS ENRIQEU MENCHU"
+incluir
+funcion
+numero
++
+-
+*
+/
+(hola)

@@ -103,7 +103,28 @@ Identificador = [a-zA-Z]([0-9]|[a-zA-Z])*
 /*-------------------------------------------------------------------------*/
 
 /*----------------------------Palabras Reservadas--------------------------*/
-Reservadas = incluir | clase | funcion | si | sino | entonces | retornar | escribir | abrir | desde | mientras | hacer | incremenrar | iterar | paracada | principal | numero | cadena | booleano | nulo | verdadero | falso
+INCLUIR  = (incluir)
+CLASE    = "clase"
+FUNCION  = "funcion"
+SI       = "si"
+SINO     = sino
+ENTONCES = entonces
+RETORNAR = retornar
+ESCRIBIR = escribir
+ABRIR    = abrir
+DESDE    = desde
+MIENTRAS = mientras
+HACER    = hacer
+INCREMENTAR = incrementar
+ITERAR   = iterar
+PARACADA = paracada
+PRINCIPAL = principal
+NUMERO   = numero
+CADENA   = cadena
+BOOLEANO = booleano
+NULO     = nulo
+VERDADERO = verdadero
+FALSO     = falso
 /*-------------------------------------------------------------------------*/
 
 /*---------------------------------- Operadores----------------------------*/
@@ -119,8 +140,7 @@ MayorIgual = {Mayor}{Igual}
 MenorIgual = {Menor}{Igual}
 Disyuncion = OR
 Conjuncion = AND
-
-Operadores = {Suma}|{Resta}|{Mult}|{Div}|{Potencia}|{Igual}|{Disyuncion}|{Conjuncion}|{Menor}|{Mayor}|{MayorIgual}|{MenorIgual}
+Modulo     = \%
 /*------------------------------------------------------------------------------------------------------------*/
 
 /*-------------------------------SIGNOS----------------------------------*/
@@ -135,7 +155,6 @@ ParentesisFin= \)
 LlaveIni     = \{
 LlaveFin     = \}
 Comillas     = \"
-Signos = {ParentesisIni}|{ParentesisFin}|{CorcheteIni}|{CorcheteFin}|{DosPuntos}|{PuntoComa}|{Coma}|{Punto}|{LlaveIni}|{LlaveFin}|{Comillas}
 /*-------------------------------------------------------------------------*/
 
 /*--------------------------------Errores--------------------------*/
@@ -159,7 +178,7 @@ Comentarios = {Comentario1}|{Comentario2}
 /*---------------------------------------------------------------------------*/
 
 /*-------------------------------TEXTO---------------------------------------*/
-Texto1 = [a-zA-Z0-9]*{Caracteres}*
+Texto1 = [a-zA-Z0-9][a-zA-Z0-9]*
 
 Texto = {Comillas}{Texto1}(\s)*{Texto1}{Comillas}  
 /*---------------------------------------------------------------------------*/
@@ -179,23 +198,74 @@ Caracteres = {C1}|{C2}|{C3}|{C4}|{C5}|{C6}|{C7}
 
 
 %%
-{Texto}                {System.out.println("Texto: "+yytext());}
 
-{Error}                {System.out.println("ERROR: "+yytext());} 
+{Texto}                {System.out.println("Texto: "+yytext());}
 
 {Comentarios}          {System.out.println("Comentario: "+yytext());} 
 
-{Reservadas}           {System.out.println("RESERVADA: "+yytext());     reserL.add(yytext());   EscribirArchivo("RESERVADA: " +     yytext()+ "\r\n");}
-                            
-{Identificador}        {System.out.println("Identificador: "+yytext()); identL.add(yytext());   EscribirArchivo("IDENTIFICADOR: " + yytext()+ "\r\n");}
-
-{Operadores}           {System.out.println("OPERADOR: "+yytext());      operaL.add(yytext());   EscribirArchivo("OPERADORES: " +    yytext()+ "\r\n");}
-
 {Numero}               {System.out.println("NUMERO: "+yytext());        numL.add(yytext());     EscribirArchivo("NUMERO: " +        yytext()+ "\r\n");}
-
-{Signos}               {System.out.println("SIGNOS: "+yytext());        signL.add(yytext());    EscribirArchivo("SIGNOS: " +        yytext()+ "\r\n");} 
-
+ 
 {libreria}            {System.out.println("LIBRERIA: "+yytext()); VerificarArchivo(yytext());}   
+
+/*--------------------------------------- PALABRAS RESERVADAS -------------------------------------------------*/
+
+{INCLUIR}               {System.out.println("RESERVADA: "+yytext());}
+{CLASE}                 {System.out.println("RESERVADA: "+yytext());}
+{FUNCION}               {System.out.println("RESERVADA: "+yytext());}
+{SI}                    {System.out.println("RESERVADA: "+yytext());}
+{SINO}                  {System.out.println("RESERVADA: "+yytext());}
+{ENTONCES}              {System.out.println("RESERVADA: "+yytext());}
+{RETORNAR}              {System.out.println("RESERVADA: "+yytext());}
+{ESCRIBIR}              {System.out.println("RESERVADA: "+yytext());}
+{ABRIR}                 {System.out.println("RESERVADA: "+yytext());}
+{DESDE}                 {System.out.println("RESERVADA: "+yytext());}
+{MIENTRAS}              {System.out.println("RESERVADA: "+yytext());}
+{HACER}                 {System.out.println("RESERVADA: "+yytext());}
+{INCREMENTAR}           {System.out.println("RESERVADA: "+yytext());}
+{ITERAR}                {System.out.println("RESERVADA: "+yytext());}
+{PARACADA}              {System.out.println("RESERVADA: "+yytext());}
+{PRINCIPAL}             {System.out.println("RESERVADA: "+yytext());}
+{NUMERO}                {System.out.println("RESERVADA: "+yytext());}
+{CADENA}                {System.out.println("RESERVADA: "+yytext());}
+{BOOLEANO}              {System.out.println("RESERVADA: "+yytext());}
+{NULO}                  {System.out.println("RESERVADA: "+yytext());}
+{VERDADERO}             {System.out.println("RESERVADA: "+yytext());}
+{FALSO}                 {System.out.println("RESERVADA: "+yytext());}
+  
+/*------------------------------------------------------------------------------------------------------------*/
+{Identificador}        {System.out.println("Identificador: "+yytext()); identL.add(yytext());   EscribirArchivo("IDENTIFICADOR: " + yytext()+ "\r\n");}
+/*----------------------------------------------OPERADORES ---------------------------------------------------*/
+
+{Suma}                {System.out.println("Operador: "+yytext());}
+{Resta}               {System.out.println("Operador: "+yytext());}
+{Mult}                {System.out.println("Operador: "+yytext());}
+{Div}                 {System.out.println("Operador: "+yytext());}
+{Potencia}            {System.out.println("Operador: "+yytext());}
+{Menor}               {System.out.println("Operador: "+yytext());}
+{Mayor}               {System.out.println("Operador: "+yytext());}
+{MayorIgual}          {System.out.println("Operador: "+yytext());}
+{MenorIgual}          {System.out.println("Operador: "+yytext());}
+{Disyuncion}          {System.out.println("Operador: "+yytext());}
+{Conjuncion}          {System.out.println("Operador: "+yytext());}
+{Modulo}              {System.out.println("Operador: "+yytext());}
+
+/*------------------------------------------------------------------------------------------------------------*/
+
+/*----------------------------------------------SIGNOS--------------------------------------------------------*/
+
+{CorcheteIni}         {System.out.println("SIGNO: "+yytext());}
+{CorcheteFin}         {System.out.println("SIGNO: "+yytext());}
+{DosPuntos}           {System.out.println("SIGNO: "+yytext());}
+{PuntoComa}           {System.out.println("SIGNO: "+yytext());}
+{Coma}                {System.out.println("SIGNO: "+yytext());}
+{Punto}               {System.out.println("SIGNO: "+yytext());}
+{ParentesisIni}       {System.out.println("SIGNO: "+yytext());}
+{ParentesisFin}       {System.out.println("SIGNO: "+yytext());}
+{LlaveIni}            {System.out.println("SIGNO: "+yytext());}
+{LlaveFin}            {System.out.println("SIGNO: "+yytext());}
+{Comillas}            {System.out.println("SIGNO: "+yytext());}
+
+/*------------------------------------------------------------------------------------------------------------*/
 
 . {System.out.println("Error lexico:" +yytext());}
 

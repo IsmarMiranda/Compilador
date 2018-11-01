@@ -28,7 +28,8 @@ public class Compilador {
         Analizador_Lexico1 scanner = null;
         System.out.println("Ismar es el rey");
         try {
-
+             
+           // FileInputStream stream = new FileInputStream(args[0]);
             FileInputStream stream = new FileInputStream("src" + File.separator + "compilador" + File.separator + "datos.txt");
             Reader reader = new InputStreamReader(stream);
 

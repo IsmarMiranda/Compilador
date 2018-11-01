@@ -544,3 +544,81 @@ for(int i =0; i<5; i++)
 {
 	System.out.println("Hola Mundo");
 }
+import java.util.Scanner;
+public class MatrizScannerForEach {
+    public static void main(String args[]) {
+        Scanner entradaDatosMatriz = new Scanner(System.in);
+        int numeros[][] = new int[3][3];
+        System.out.println("Ingrese datos de la matriz de 3x3");
+        for (int h = 0; h < numeros.length; h++) {
+            for (int j = 0; j < numeros.length; j++) {
+                System.out.print("numeros[" + h + "][" + j + "]: ");
+                numeros[h][j] = entradaDatosMatriz.nextInt();
+            }
+        }
+        entradaDatosMatriz.close();
+        System.out.println("\nMatriz ForEach");
+        for (int[] num : numeros) {
+            for (int elem : num) {
+                System.out.print(elem + "\t"); // Tabulador
+            }
+            System.out.print("\n"); // Salto de L�nea
+        }
+    }
+}
+for(int i =0; i<5; i++)
+{
+	System.out.println("Hola Mundo");
+}
+import java.util.Scanner;
+public class MatrizScannerForEach {
+    public static void main(String args[]) {
+        Scanner entradaDatosMatriz = new Scanner(System.in);
+        int numeros[][] = new int[3][3];
+        System.out.println("Ingrese datos de la matriz de 3x3");
+        for (int h = 0; h < numeros.length; h++) {
+            for (int j = 0; j < numeros.length; j++) {
+                System.out.print("numeros[" + h + "][" + j + "]: ");
+                numeros[h][j] = entradaDatosMatriz.nextInt();
+            }
+        }
+        entradaDatosMatriz.close();
+        System.out.println("\nMatriz ForEach");
+        for (int[] num : numeros) {
+            for (int elem : num) {
+                System.out.print(elem + "\t"); // Tabulador
+            }
+            System.out.print("\n"); // Salto de L�nea
+        }
+    }
+}
+for(int i =0; i<5; i++)
+{
+	System.out.println("Hola Mundo");
+}
+import java.util.Scanner;
+public class MatrizScannerForEach {
+    public static void main(String args[]) {
+        Scanner entradaDatosMatriz = new Scanner(System.in);
+        int numeros[][] = new int[3][3];
+        System.out.println("Ingrese datos de la matriz de 3x3");
+        for (int h = 0; h < numeros.length; h++) {
+            for (int j = 0; j < numeros.length; j++) {
+                System.out.print("numeros[" + h + "][" + j + "]: ");
+                numeros[h][j] = entradaDatosMatriz.nextInt();
+            }
+        }
+        entradaDatosMatriz.close();
+        System.out.println("\nMatriz ForEach");
+        for (int[] num : numeros) {
+            for (int elem : num) {
+                System.out.print(elem + "\t"); // Tabulador
+            }
+            System.out.print("\n"); // Salto de L�nea
+        }
+    }
+}
+for(int i =0; i<5; i++)
+{
+	System.out.println("Hola Mundo");
+}

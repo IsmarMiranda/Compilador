@@ -1,0 +1,62 @@
+package Lexico;
+
+import java_cup.runtime.Symbol;
+
+
+/*-------------------Tokens terminales de palabras reservadas-----------------*/
+terminal Token INCLUIR
+terminal Token CLASE
+terminal Token FUNCION
+terminal Token SI
+terminal Token SINO
+terminal Token ENTONCES
+terminal Token RETORNAR
+terminal Token ESCRIBIR
+terminal Token ABRIR
+terminal Token DESDE
+terminal Token MIENTRAS
+terminal Token HACER
+terminal Token INCREMENTAR
+terminal Token ITERAR
+terminal Token PARACADA
+terminal Token PRINCIPAL
+terminal Token NUMERO
+terminal Token CADENA
+terminal Token BOOLEANO
+terminal Token NULO
+terminal Token VERDADERO
+terminal Token FALSO
+/*------------------------------------------------------------------------------*/
+
+/*--------------------Tokens terminales de operadores---------------------------*/
+terminal Token SUMA
+terminal Token RESTA
+terminal Token MULT
+terminal Token DIV
+terminal Token POTENCIA
+terminal Token MAYOR
+terminal Token MENOR
+terminal Token MAYORI
+terminal Token MENORI
+terminal Token DISY
+terminal Token CONJ
+terminal Token MODULO
+/*-------------------------------------------------------------------------------*/
+
+/*----------------------Tokens terminales de signos------------------------------*/
+terminal Token CORCHTI
+terminal Token CORCHTF
+terminal Token DOSP
+terminal Token PCOMA
+terminal Token COMA
+terminal Token PUNTO
+terminal Token PARNTI
+terminal Token PARNTF
+terminal Token LLAVI
+terminal Token LLAVF
+terminal Token COMLLAS
+/*-------------------------------------------------------------------------------*/
+
+/*---------------------- Simbolo no terminales-----------------------------------*/
+
+/*-------------------------------------------------------------------------------*/
