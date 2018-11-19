@@ -1,62 +1,254 @@
-package Lexico;
+package Analizado_Lexico;
 
 import java_cup.runtime.Symbol;
 
 
 /*-------------------Tokens terminales de palabras reservadas-----------------*/
-terminal Token INCLUIR
-terminal Token CLASE
-terminal Token FUNCION
-terminal Token SI
-terminal Token SINO
-terminal Token ENTONCES
-terminal Token RETORNAR
-terminal Token ESCRIBIR
-terminal Token ABRIR
-terminal Token DESDE
-terminal Token MIENTRAS
-terminal Token HACER
-terminal Token INCREMENTAR
-terminal Token ITERAR
-terminal Token PARACADA
-terminal Token PRINCIPAL
-terminal Token NUMERO
-terminal Token CADENA
-terminal Token BOOLEANO
-terminal Token NULO
-terminal Token VERDADERO
-terminal Token FALSO
+terminal Token NUMERO;
+terminal Token ID;
+terminal Token INCLUIR;
+terminal Token CLASE;
+terminal Token FUNCION;
+terminal Token SI;
+terminal Token SINO;
+terminal Token ENTONCES;
+terminal Token RETORNAR;
+terminal Token ESCRIBIR;
+terminal Token ABRIR;
+terminal Token DESDE;
+terminal Token MIENTRAS;
+terminal Token HACER;
+terminal Token INCREMENTAR;
+terminal Token DECREMENTAR;
+terminal Token ITERAR;
+terminal Token PARACADA;
+terminal Token PRINCIPAL;
+terminal Token TNUMERO;
+terminal Token CADENA;
+terminal Token BOOLEANO;
+terminal Token NULO;
+terminal Token VERDADERO;
+terminal Token FALSO;
+terminal Token EN;
 /*------------------------------------------------------------------------------*/
 
 /*--------------------Tokens terminales de operadores---------------------------*/
-terminal Token SUMA
-terminal Token RESTA
-terminal Token MULT
-terminal Token DIV
-terminal Token POTENCIA
-terminal Token MAYOR
-terminal Token MENOR
-terminal Token MAYORI
-terminal Token MENORI
-terminal Token DISY
-terminal Token CONJ
-terminal Token MODULO
+terminal Token SUMA;
+terminal Token RESTA;
+terminal Token MULT;
+terminal Token DIV;
+terminal Token POTENCIA;
+terminal Token MAYOR;
+terminal Token MENOR;
+terminal Token DISY;
+terminal Token CONJ;
+terminal Token MODULO;
+terminal Token IGUAL;
+terminal Token DIGUAL;
 /*-------------------------------------------------------------------------------*/
 
 /*----------------------Tokens terminales de signos------------------------------*/
-terminal Token CORCHTI
-terminal Token CORCHTF
-terminal Token DOSP
-terminal Token PCOMA
-terminal Token COMA
-terminal Token PUNTO
-terminal Token PARNTI
-terminal Token PARNTF
-terminal Token LLAVI
-terminal Token LLAVF
-terminal Token COMLLAS
+terminal Token CORCHETEINI;
+terminal Token CORCHETEFIN;
+terminal Token DOSP;
+terminal Token PCOMA;
+terminal Token COMA;
+terminal Token PUNTO;
+terminal Token PARINI;
+terminal Token PARFIN;
+terminal Token LLAVI;
+terminal Token LLAVF;
+terminal Token TEXTO;
+terminal Token TAB;
 /*-------------------------------------------------------------------------------*/
 
 /*---------------------- Simbolo no terminales-----------------------------------*/
+non terminal PROGRAMA;
+non terminal LCODIGO;
+non terminal DECCLASE;
+non terminal DECFUNCION;
+non terminal DECLIBRERIA;
+non terminal CODIGO;
+non terminal CODIGOCLASE;
+non terminal FUNP;
+non terminal FUN;
+non terminal TIPO;
+non terminal PARAMETROSR;
+non terminal DECVARIABLE;
+non terminal ESCRITURA;
+non terminal OPERACION;
+non terminal CICLO;
+non terminal CONDICION;
+non terminal OPERARCHIVO;
+non terminal VARIABLES;
+non terminal OPERACION1;
+non terminal CDESDE;
+non terminal CPARACADA;
+non terminal VARDESDE;
+non terminal TIPOCOND;
+non terminal INCREMENTODEC;
+non terminal CONDICIONSI;
+non terminal SINOCOND;
+non terminal SINON;
+non terminal TIPOESCRITURA;
+non terminal NOMBREARCHIVO;
+non terminal OPERACIONARCHIVO;
+non terminal ABRIRARCHIVOS;
+non terminal DECARCHIVO;
+non terminal TIPOCONDICION;
 
 /*-------------------------------------------------------------------------------*/
+
+precedence left SUMA, RESTA;
+precedence right MULT, DIV;
+
+start with PROGRAMA;
+
+/*--------------------------------PRODUCCIONES-----------------------------------*/
+
+PROGRAMA ::=  LCODIGO PROGRAMA 
+	    | LCODIGO
+            ;
+
+LCODIGO ::=   DECCLASE 
+            | DECFUNCION 
+            | DECLIBRERIA	
+	    | CODIGO
+            ;
+
+DECCLASE ::=  CLASE ID DOSP TAB CODIGOCLASE
+	    | TAB CLASE ID DOSP TAB CODIGOCLASE
+            ;
+
+CODIGOCLASE ::=   DECFUNCION 
+		| CODIGO
+                ;
+
+DECFUNCION ::=    TAB FUNP
+		| TAB FUN
+		| FUNP
+		| FUN
+                ;
+
+
+/*-----------------------------PRODUCCION DE FUNCIONES--------------------------*/
+
+FUNP ::=   FUNCION TIPO ID PARINI PARAMETROSR PARFIN DOSP TAB CODIGO
+	 | FUNCION ID PARINI PARAMETROSR PARFIN DOSP TAB CODIGO
+         ;
+
+FUN  ::=   FUNCION TIPO ID PARINI PARFIN  DOSP TAB CODIGO
+	 | FUNCION ID PARINI PARFIN DOSP TAB CODIGO
+         ;
+
+PARAMETROSR ::=  TIPO ID COMA PARAMETROSR
+	       | TIPO ID
+               ;
+
+/*-------------------------------------------------------------------------------*/
+
+/*-----------------------------PRODUCCION DE LINEAS DE CODIGO--------------------*/
+CODIGO ::=   DECVARIABLE
+	   | ESCRITURA
+	   | OPERACION
+	   | CICLO
+	   | CONDICION
+	   | OPERARCHIVO
+	   | DECARCHIVO
+           ;
+/*-------------------------------------------------------------------------------*/
+
+DECVARIABLE  ::=  TIPO VARIABLES PCOMA 
+                ;
+
+VARIABLES ::=   ID COMA VARIABLES
+	      | ID 
+              ;
+/*-------------------------------------------------------------------------------*/
+
+OPERACION ::=     ID OPERACION1
+		| NUMERO OPERACION1
+		| ID
+		| NUMERO
+                ;
+
+OPERACION1 ::=    SUMA OPERACION
+		| RESTA OPERACION
+		| MULT OPERACION
+		| DIV OPERACION
+		| MODULO OPERACION
+		| POTENCIA OPERACION
+                ;
+/*----------------------------------------------------------------------------------*/
+
+/*----------------------------------CICLOS------------------------------------------*/
+
+CICLO ::=   CDESDE
+	  | CPARACADA
+          ;
+
+
+CDESDE ::=  DESDE PARINI VARDESDE MIENTRAS ID TIPOCOND NUMERO INCREMENTODEC NUMERO PARFIN ITERAR DOSP TAB CODIGO
+	  | DESDE PARINI VARDESDE MIENTRAS ID TIPOCOND NUMERO PARFIN ITERAR DOSP TAB CODIGO 
+          ;
+
+VARDESDE ::= ID IGUAL NUMERO 
+             ;
+
+INCREMENTODEC ::= INCREMENTAR
+		 |DECREMENTAR
+                 ;
+
+/*CPARACADA  ::= PARACADA PARINI ID EN VARARCHIVO PARFIN ITERAR DOSP TAB CODIGO*/
+
+/*-----------------------------------------------------------------------------------*/
+
+/*----------------------------------- CONDICIONES-------------------------------------*/
+
+CONDICION ::=  CONDICIONSI  
+              |CONDICIONSI SINOCOND
+              |CONDICIONSI SINO
+              
+                ;
+
+TIPOCONDICION ::=  SINOCOND
+                 | SINON
+                 ;
+
+CONDICIONSI ::= SI PARINI ID TIPOCOND NUMERO PARFIN ENTONCES DOSP TAB CODIGO
+                ;
+
+TIPOCOND ::=  MENOR
+	    | MAYOR
+	    | DIGUAL
+            ;
+
+SINOCOND ::= SINO PARINI ID TIPOCOND NUMERO PARFIN ENTONCES DOSP TAB CODIGO
+             ;
+
+SINON ::= SINO DOSP TAB CODIGO
+          ;
+
+
+/*------------------------------------------------------------------------------------*/
+
+
+
+/*-----------------------------------ESCRITURA------------------------------*/
+
+ESCRITURA ::=    ESCRIBIR TIPOESCRITURA PCOMA 
+                ;
+
+TIPOESCRITURA ::=   ID COMA TIPOESCRITURA
+		  | TEXTO COMA TIPOESCRITURA
+		  | ID
+		  | TEXTO
+                  ;
+
+/*--------------------------------------------------------------------------*/
+
+
+
+
+
+

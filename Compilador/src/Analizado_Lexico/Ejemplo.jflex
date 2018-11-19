@@ -1,5 +1,7 @@
 package Analizado_Lexico;
 
+import java_cup.runtime.Symbol;
+
 
 import java.util.ArrayList;
 import java.io.File;
@@ -12,11 +14,12 @@ import java.io.FileNotFoundException;
 %%
 
 %class Analizador_Lexico1
-%unicode
+/*%unicode*/
 %line
 %column
 %public
-%standalone
+%cup
+/*%standalone*/
  
 
 %{
@@ -93,8 +96,7 @@ String ruta = "src"+File.separator+"compilador"+File.separator+"tokens.txt";
 
 
 /*-------------------------------NUMEROS----------------------------------*/
-Numero = 0 | [1-9][0-9]*
-
+Numero1 = 0 | [1-9][0-9]*
 /*-------------------------------------------------------------------------*/
 
 
@@ -102,29 +104,33 @@ Numero = 0 | [1-9][0-9]*
 Identificador = [a-zA-Z]([0-9]|[a-zA-Z])*
 /*-------------------------------------------------------------------------*/
 
+/*-------------------------------Indentacion--------------------------------*/
+TAB = [\t] |[    ]
+/*--------------------------------------------------------------------------*/
+
 /*----------------------------Palabras Reservadas--------------------------*/
-INCLUIR  = (incluir)
+INCLUIR  = "incluir"
 CLASE    = "clase"
 FUNCION  = "funcion"
 SI       = "si"
-SINO     = sino
-ENTONCES = entonces
-RETORNAR = retornar
-ESCRIBIR = escribir
-ABRIR    = abrir
-DESDE    = desde
-MIENTRAS = mientras
-HACER    = hacer
-INCREMENTAR = incrementar
-ITERAR   = iterar
-PARACADA = paracada
-PRINCIPAL = principal
-NUMERO   = numero
-CADENA   = cadena
-BOOLEANO = booleano
-NULO     = nulo
-VERDADERO = verdadero
-FALSO     = falso
+SINO     = "sino"
+ENTONCES = "entonces"
+RETORNAR = "retornar"
+ESCRIBIR = "escribir"
+ABRIR    = "abrir"
+DESDE    = "desde"
+MIENTRAS = "mientras"
+HACER    = "hacer"
+INCREMENTAR = "incrementar"
+ITERAR   = "iterar"
+PARACADA = "paracada"
+PRINCIPAL = "principal"
+NUMERO   = "numero"
+CADENA   = "cadena"
+BOOLEANO = "booleano"
+NULO     = "nulo"
+VERDADERO = "verdadero"
+FALSO     = "falso"
 /*-------------------------------------------------------------------------*/
 
 /*---------------------------------- Operadores----------------------------*/
@@ -162,7 +168,7 @@ Error = [0-9][a-zA-Z][a-zA-Z]*
 /*-------------------------------------------------------------------------*/
 
 /*--------------------------------Libreria--------------------------*/
-libreria = [a-zA-Z]*[.][a-zA-Z]*
+libreria = [a-zA-Z]*{Punto}[a-zA-Z]*
 /*-------------------------------------------------------------------------*/
 
 /*---------------------------- Espacios--------------------------------------*/
@@ -199,72 +205,200 @@ Caracteres = {C1}|{C2}|{C3}|{C4}|{C5}|{C6}|{C7}
 
 %%
 
+{TAB}                   {  
+                            return new Symbol(sym.TAB,new Token(yycolumn,yyline,yytext()));
+                        }
+
 {Texto}                {System.out.println("Texto: "+yytext());}
 
 {Comentarios}          {System.out.println("Comentario: "+yytext());} 
 
-{Numero}               {System.out.println("NUMERO: "+yytext());        numL.add(yytext());     EscribirArchivo("NUMERO: " +        yytext()+ "\r\n");}
- 
-{libreria}            {System.out.println("LIBRERIA: "+yytext()); VerificarArchivo(yytext());}   
+/*{libreria}            {System.out.println("LIBRERIA: "+yytext()); VerificarArchivo(yytext());}   */
 
 /*--------------------------------------- PALABRAS RESERVADAS -------------------------------------------------*/
 
-{INCLUIR}               {System.out.println("RESERVADA: "+yytext());}
-{CLASE}                 {System.out.println("RESERVADA: "+yytext());}
-{FUNCION}               {System.out.println("RESERVADA: "+yytext());}
-{SI}                    {System.out.println("RESERVADA: "+yytext());}
-{SINO}                  {System.out.println("RESERVADA: "+yytext());}
-{ENTONCES}              {System.out.println("RESERVADA: "+yytext());}
-{RETORNAR}              {System.out.println("RESERVADA: "+yytext());}
-{ESCRIBIR}              {System.out.println("RESERVADA: "+yytext());}
-{ABRIR}                 {System.out.println("RESERVADA: "+yytext());}
-{DESDE}                 {System.out.println("RESERVADA: "+yytext());}
-{MIENTRAS}              {System.out.println("RESERVADA: "+yytext());}
-{HACER}                 {System.out.println("RESERVADA: "+yytext());}
-{INCREMENTAR}           {System.out.println("RESERVADA: "+yytext());}
-{ITERAR}                {System.out.println("RESERVADA: "+yytext());}
-{PARACADA}              {System.out.println("RESERVADA: "+yytext());}
-{PRINCIPAL}             {System.out.println("RESERVADA: "+yytext());}
-{NUMERO}                {System.out.println("RESERVADA: "+yytext());}
-{CADENA}                {System.out.println("RESERVADA: "+yytext());}
-{BOOLEANO}              {System.out.println("RESERVADA: "+yytext());}
-{NULO}                  {System.out.println("RESERVADA: "+yytext());}
-{VERDADERO}             {System.out.println("RESERVADA: "+yytext());}
-{FALSO}                 {System.out.println("RESERVADA: "+yytext());}
+{Numero1}                {
+                            System.out.println("RESERVADA: "+yytext());
+                            return new Symbol(sym.NUMERO,new Token(yycolumn,yyline,yytext()));
+                        }
+
+{INCLUIR}               {
+                            System.out.println("RESERVADA: "+yytext());
+                            return new Symbol(sym.INCLUIR,new Token(yycolumn,yyline,yytext()));
+                        }
+{CLASE}                 {
+                            System.out.println("RESERVADA: "+yytext());
+                            return new Symbol(sym.CLASE,new Token(yycolumn,yyline,yytext()));
+                        }
+{FUNCION}               {
+                            System.out.println("RESERVADA: "+yytext());
+                            return new Symbol(sym.FUNCION,new Token(yycolumn,yyline,yytext()));
+                        }
+{SI}                    {
+                            System.out.println("RESERVADA: "+yytext());
+                            return new Symbol(sym.SI,new Token(yycolumn,yyline,yytext()));
+                        }
+{SINO}                  {
+                            System.out.println("RESERVADA: "+yytext());
+                            return new Symbol(sym.SINO,new Token(yycolumn,yyline,yytext()));
+                        }
+{ENTONCES}              {
+                            System.out.println("RESERVADA: "+yytext());
+                            return new Symbol(sym.ENTONCES,new Token(yycolumn,yyline,yytext()));
+                        }
+{RETORNAR}              {
+                            System.out.println("RESERVADA: "+yytext());
+                            return new Symbol(sym.RETORNAR,new Token(yycolumn,yyline,yytext()));
+                        }
+{ESCRIBIR}              {
+                            System.out.println("RESERVADA: "+yytext());
+                            return new Symbol(sym.ESCRIBIR,new Token(yycolumn,yyline,yytext()));
+                        }
+{ABRIR}                 {
+                            System.out.println("RESERVADA: "+yytext());
+                            return new Symbol(sym.ABRIR,new Token(yycolumn,yyline,yytext()));
+                        }
+{DESDE}                 {
+                            System.out.println("RESERVADA: "+yytext());
+                            return new Symbol(sym.DESDE,new Token(yycolumn,yyline,yytext()));
+                        }
+{MIENTRAS}              {
+                            System.out.println("RESERVADA: "+yytext());
+                            return new Symbol(sym.MIENTRAS,new Token(yycolumn,yyline,yytext()));
+                        }
+{HACER}                 {
+                            System.out.println("RESERVADA: "+yytext());
+                            return new Symbol(sym.HACER,new Token(yycolumn,yyline,yytext()));
+                        }
+{INCREMENTAR}           {
+                            System.out.println("RESERVADA: "+yytext());
+                            return new Symbol(sym.INCREMENTAR,new Token(yycolumn,yyline,yytext()));
+                        }
+{ITERAR}                {
+                            System.out.println("RESERVADA: "+yytext());
+                            return new Symbol(sym.ITERAR,new Token(yycolumn,yyline,yytext()));
+                        }
+{PARACADA}              {
+                            System.out.println("RESERVADA: "+yytext());
+                            return new Symbol(sym.PARACADA,new Token(yycolumn,yyline,yytext()));
+                        }
+{PRINCIPAL}             {
+                            System.out.println("RESERVADA: "+yytext()); 
+                            return new Symbol(sym.PRINCIPAL,new Token(yycolumn,yyline,yytext()));
+                        }
+{NUMERO}                {
+                            System.out.println("RESERVADA: "+yytext());
+                            return new Symbol(sym.TNUMERO,new Token(yycolumn,yyline,yytext()));
+                        }
+{CADENA}                {
+                            System.out.println("RESERVADA: "+yytext());
+                            return new Symbol(sym.CADENA,new Token(yycolumn,yyline,yytext()));
+                        }
+{BOOLEANO}              {
+                            System.out.println("RESERVADA: "+yytext());
+                            return new Symbol(sym.BOOLEANO,new Token(yycolumn,yyline,yytext()));
+                        }
+{NULO}                  {
+                            System.out.println("RESERVADA: "+yytext());
+                            return new Symbol(sym.NULO,new Token(yycolumn,yyline,yytext()));
+                        }
+{VERDADERO}             {
+                            System.out.println("RESERVADA: "+yytext());
+                            return new Symbol(sym.VERDADERO,new Token(yycolumn,yyline,yytext()));
+                        }
+{FALSO}                 {
+                            System.out.println("RESERVADA: "+yytext());
+                            return new Symbol(sym.FALSO,new Token(yycolumn,yyline,yytext()));
+                        }
+
+{Disyuncion}          {
+                            System.out.println("Operador: "+yytext());
+                            return new Symbol(sym.DISY,new Token(yycolumn,yyline,yytext()));
+                      }
+{Conjuncion}          {
+                            System.out.println("Operador: "+yytext());
+                            return new Symbol(sym.CONJ,new Token(yycolumn,yyline,yytext()));
+                      }
   
 /*------------------------------------------------------------------------------------------------------------*/
 {Identificador}        {System.out.println("Identificador: "+yytext()); identL.add(yytext());   EscribirArchivo("IDENTIFICADOR: " + yytext()+ "\r\n");}
 /*----------------------------------------------OPERADORES ---------------------------------------------------*/
 
-{Suma}                {System.out.println("Operador: "+yytext());}
-{Resta}               {System.out.println("Operador: "+yytext());}
-{Mult}                {System.out.println("Operador: "+yytext());}
-{Div}                 {System.out.println("Operador: "+yytext());}
-{Potencia}            {System.out.println("Operador: "+yytext());}
-{Menor}               {System.out.println("Operador: "+yytext());}
-{Mayor}               {System.out.println("Operador: "+yytext());}
+{Suma}                {
+                            System.out.println("Operador: "+yytext());
+                            return new Symbol(sym.SUMA,new Token(yycolumn,yyline,yytext()));
+                      }
+{Resta}               {
+                            System.out.println("Operador: "+yytext());
+                            return new Symbol(sym.RESTA,new Token(yycolumn,yyline,yytext()));
+                      }
+{Mult}                {
+                            System.out.println("Operador: "+yytext());
+                            return new Symbol(sym.MULT,new Token(yycolumn,yyline,yytext()));
+                      }
+{Div}                 {
+                            System.out.println("Operador: "+yytext());
+                            return new Symbol(sym.DIV,new Token(yycolumn,yyline,yytext()));
+                      }
+{Potencia}            {
+                            System.out.println("Operador: "+yytext());
+                            return new Symbol(sym.POTENCIA,new Token(yycolumn,yyline,yytext()));
+                      }
+{Menor}               {
+                            System.out.println("Operador: "+yytext());
+                            return new Symbol(sym.MENOR,new Token(yycolumn,yyline,yytext()));
+                      }
+{Mayor}               {
+                            System.out.println("Operador: "+yytext());
+                            return new Symbol(sym.MAYOR,new Token(yycolumn,yyline,yytext()));
+                      }
 {MayorIgual}          {System.out.println("Operador: "+yytext());}
 {MenorIgual}          {System.out.println("Operador: "+yytext());}
-{Disyuncion}          {System.out.println("Operador: "+yytext());}
-{Conjuncion}          {System.out.println("Operador: "+yytext());}
-{Modulo}              {System.out.println("Operador: "+yytext());}
+
+{Modulo}              {
+                            System.out.println("Operador: "+yytext());
+                            return new Symbol(sym.MODULO,new Token(yycolumn,yyline,yytext()));
+                      }
 
 /*------------------------------------------------------------------------------------------------------------*/
 
 /*----------------------------------------------SIGNOS--------------------------------------------------------*/
 
-{CorcheteIni}         {System.out.println("SIGNO: "+yytext());}
-{CorcheteFin}         {System.out.println("SIGNO: "+yytext());}
-{DosPuntos}           {System.out.println("SIGNO: "+yytext());}
-{PuntoComa}           {System.out.println("SIGNO: "+yytext());}
-{Coma}                {System.out.println("SIGNO: "+yytext());}
-{Punto}               {System.out.println("SIGNO: "+yytext());}
-{ParentesisIni}       {System.out.println("SIGNO: "+yytext());}
-{ParentesisFin}       {System.out.println("SIGNO: "+yytext());}
+{CorcheteIni}         {
+                            System.out.println("SIGNO: "+yytext());
+                            return new Symbol(sym.CORCHETEINI,new Token(yycolumn,yyline,yytext()));
+                      }
+{CorcheteFin}         {
+                            System.out.println("SIGNO: "+yytext());
+                            return new Symbol(sym.CORCHETEFIN,new Token(yycolumn,yyline,yytext()));
+                      }
+{DosPuntos}           {
+                            System.out.println("SIGNO: "+yytext());
+                            return new Symbol(sym.DOSP,new Token(yycolumn,yyline,yytext()));
+                      }
+{PuntoComa}           {
+                            System.out.println("SIGNO: "+yytext());
+                            return new Symbol(sym.PCOMA,new Token(yycolumn,yyline,yytext()));
+                      }
+{Coma}                {
+                            System.out.println("SIGNO: "+yytext());
+                            return new Symbol(sym.COMA,new Token(yycolumn,yyline,yytext()));
+                      }
+{Punto}               {
+                            System.out.println("SIGNO: "+yytext());
+                            return new Symbol(sym.PUNTO,new Token(yycolumn,yyline,yytext()));
+                      }
+{ParentesisIni}       {
+                            System.out.println("SIGNO: "+yytext());
+                            return new Symbol(sym.PARINI,new Token(yycolumn,yyline,yytext()));
+                      }
+{ParentesisFin}       {
+                            System.out.println("SIGNO: "+yytext());
+                            return new Symbol(sym.PARFIN,new Token(yycolumn,yyline,yytext()));
+                      }
 {LlaveIni}            {System.out.println("SIGNO: "+yytext());}
 {LlaveFin}            {System.out.println("SIGNO: "+yytext());}
-{Comillas}            {System.out.println("SIGNO: "+yytext());}
-
+    
 /*------------------------------------------------------------------------------------------------------------*/
 
 . {System.out.println("Error lexico:" +yytext());}

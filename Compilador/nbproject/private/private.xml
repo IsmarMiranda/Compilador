@@ -3,7 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/carlo/Desktop/git/Compilador/Compilador/src/Analizado_Lexico/GeneradorSintactico.java</file>
             <file>file:/C:/Users/carlo/Desktop/git/Compilador/Compilador/src/compilador/General.java</file>
+            <file>file:/C:/Users/carlo/Desktop/git/Compilador/Compilador/src/Analizado_Lexico/Sintactico.cup</file>
+            <file>file:/C:/Users/carlo/Desktop/git/Compilador/Compilador/src/Analizado_Lexico/Ejemplo.jflex</file>
+            <file>file:/C:/Users/carlo/Desktop/git/Compilador/Compilador/src/Analizado_Lexico/Token.java</file>
+            <file>file:/C:/Users/carlo/Desktop/git/Compilador/Compilador/src/Analizado_Lexico/Analizador_Lexico1.java</file>
+            <file>file:/C:/Users/carlo/Desktop/git/Compilador/Compilador/src/compilador/Compilador.java</file>
         </group>
     </open-files>
 </project-private>
